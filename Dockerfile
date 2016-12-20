@@ -1,4 +1,4 @@
-FROM php:5.6-apache
+FROM php:apache
 
 MAINTAINER Milo van der Linden <milo@dogodigi.net>
 
@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends apt-utils\
 
 # Variables
 ENV APP_ENV production
-ENV APP_DEBUG false
+ENV APP_DEBUG true
 ENV APP_URL http://localhost
 ENV APP_CIPHER rijndael-128
 ENV APP_KEY attendizeSecr3tK3y
@@ -52,5 +52,5 @@ WORKDIR /var/www/html
 RUN git checkout tags/v0.5.1-alpha
 RUN composer install
 RUN php artisan attendize:install
-ENV
 RUN a2enmod rewrite
+COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
